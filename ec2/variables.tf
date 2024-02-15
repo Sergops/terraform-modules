@@ -1,0 +1,304 @@
+variable "name" {
+  description = "Name of EC2 instance"
+  type        = string
+  default     = ""
+}
+
+variable "ami" {
+  description = "ID of AMI for instance"
+  type        = string
+  default     = ""
+}
+
+variable "associate_public_ip_address" {
+  description = "Whether to associate a public IP address with an instance in a VPC"
+  type        = bool
+  default     = null
+}
+
+variable "availability_zone" {
+  description = "AZ there will be able instance"
+  type        = string
+  default     = null
+}
+
+variable "capacity_reservation_specification" {
+  description = "Describes an instance's Capacity Reservation targeting option"
+  type        = any
+  default     = null
+}
+
+variable "cpu_credits" {
+  description = "Credit option for CPU usage. Valid values include standard or unlimited"
+  type        = string
+  default     = null
+}
+
+variable "cpu_core_count" {
+    description = "Sets the number of CPU cores for an instance."
+    type = number
+    default = null
+}
+
+variable "cpu_threads_per_core" {
+    description = "If set to 1, hyperthreading is disabled on the launched instance. Defaults to 2 if not set"
+    type = number
+    default = 2
+}
+
+variable "disable_api_termination" {
+  description = "If true, enables EC2 Instance Termination Protection"
+  type        = bool
+  default     = null
+}
+
+variable "ebs_block_device" {
+  description = "One or more configuration blocks with additional EBS block devices to attach to the instance"
+  type        = list(map(string))
+  default     = []
+}
+
+variable "ebs_optimized" {
+  description = "If true, the launched EC2 instance will be EBS-optimized"
+  type        = bool
+  default     = null
+}
+
+variable "enclave_options_enabled" {
+  description = "Enable Nitro Enclaves on launched instances. Defaults to false"
+  type        = bool
+  default     = null
+}
+
+variable "ephemeral_block_device" {
+  description = "One or more configuration blocks to customize Ephemeral volumes on the instance"
+  type        = list(map(string))
+  default     = []
+}
+
+variable "get_password_data" {
+  description = "If true, wait for password data to become available and retrieve it."
+  type        = bool
+  default     = null
+}
+
+variable "hibernation" {
+  description = "If true, the launched EC2 instance will support hibernation"
+  type        = bool
+  default     = null
+}
+
+variable "host_id" {
+  description = "ID of a dedicated host that the instance will be assigned to. Use when an instance is to be launched on a specific dedicated host"
+  type        = string
+  default     = null
+}
+
+variable "host_resource_group_arn" {
+    description = "ARN of the host resource group in which to launch the instances"
+    type        =  string
+    default     = null
+}
+
+variable "iam_instance_profile" {
+  description = "IAM Instance Profile to launch the instance with. Specified as the name of the Instance Profile"
+  type        = string
+  default     = null
+}
+
+variable "instance_initiated_shutdown_behavior" {
+  description = "Shutdown behavior for the instance. Amazon defaults this to stop for EBS-backed instances and terminate for instance-store instances. Cannot be set on instance-store instance" 
+  type        = string
+  default     = null
+}
+
+variable "instance_type" {
+  description = "Instance type to use for the instance"
+  type        = string
+  default     = "t3.micro"
+}
+
+variable "ipv6_address_count" {
+  description = "A number of IPv6 addresses to associate with the primary network interface. Amazon EC2 chooses the IPv6 addresses from the range of your subnet"
+  type        = number
+  default     = null
+}
+
+variable "ipv6_addresses" {
+  description = "Specify one or more IPv6 addresses from the range of the subnet to associate with the primary network interface"
+  type        = list(string)
+  default     = null
+}
+
+variable "key_name" {
+  description = "Key name of the Key Pair to use for the instance; which can be managed using the `aws_key_pair` resource"
+  type        = string
+  default     = null
+}
+
+variable "launch_template" {
+  description = "Specifies a Launch Template to configure the instance. Parameters configured on this resource will override the corresponding parameters in the Launch Template"
+  type        = map(string)
+  default     = null
+}
+
+variable "metadata_options" {
+  description = "Customize the metadata options of the instance"
+  type        = map(string)
+  default     = {}
+}
+
+variable "monitoring" {
+  description = "If true, the launched EC2 instance will have detailed monitoring enabled"
+  type        = bool
+  default     = false
+}
+
+variable "network_interface" {
+  description = "Customize network interfaces to be attached at instance boot time"
+  type        = list(map(string))
+  default     = []
+}
+
+variable "placement_group" {
+  description = "The Placement Group to start the instance in"
+  type        = string
+  default     = null
+}
+
+variable "private_ip" {
+  description = "Private IP address to associate with the instance in a VPC"
+  type        = string
+  default     = null
+}
+
+variable "root_block_device" {
+  description = "Customize details about the root block device of the instance. See Block Devices below for details"
+  type        = list(any)
+  default     = []
+}
+
+variable "secondary_private_ips" {
+  description = "A list of secondary private IPv4 addresses to assign to the instance's primary network interface (eth0) in a VPC. Can only be assigned to the primary network interface (eth0) attached at instance creation, not a pre-existing network interface i.e. referenced in a `network_interface block`"
+  type        = list(string)
+  default     = null
+}
+
+variable "source_dest_check" {
+  description = "Controls if traffic is routed to the instance when the destination address does not match the instance. Used for NAT or VPNs."
+  type        = bool
+  default     = true
+}
+
+variable "subnet_id" {
+  description = "The VPC Subnet ID to launch in"
+  type        = string
+  default     = null
+}
+
+variable "tags" {
+  description = "A mapping of tags to assign to the resource"
+  type        = map(string)
+  default     = {}
+}
+
+variable "tenancy" {
+  description = "The tenancy of the instance (if the instance is running in a VPC). Available values: default, dedicated, host."
+  type        = string
+  default     = null
+}
+
+variable "user_data" {
+  description = "The user data to provide when launching the instance. Do not pass gzip-compressed data via this argument; see user_data_base64 instead."
+  type        = string
+  default     = null
+}
+
+variable "user_data_base64" {
+  description = "Can be used instead of user_data to pass base64-encoded binary data directly. Use this instead of user_data whenever the value is not a valid UTF-8 string. For example, gzip-encoded user data must be base64-encoded and passed via this argument to avoid corruption."
+  type        = string
+  default     = null
+}
+
+variable "volume_tags" {
+  description = "A mapping of tags to assign to the devices created by the instance at launch time"
+  type        = map(string)
+  default     = {}
+}
+
+variable "enable_volume_tags" {
+  description = "Whether to enable volume tags (if enabled it conflicts with root_block_device tags)"
+  type        = bool
+  default     = true
+}
+
+variable "vpc_security_group_ids" {
+  description = "A list of security group IDs to associate with"
+  type        = list(string)
+  default     = null
+}
+
+variable "timeouts" {
+  description = "Define maximum timeout of creating, updating, and deleting EC2 instance resources"
+  type        = map(string)
+  default     = {}
+}
+
+
+#######################
+# Spot request vars
+########################
+
+variable "create_spot_instance" {
+  description = "Turn into true if need a spot instance"
+  type        = bool
+  default     = false
+}
+
+variable "spot_price" {
+  description = "Maximum price of request spot instance. If not declare uses on-demand price"
+  type        = string
+  default     = null
+}
+
+variable "spot_wait_for_fulfillment" {
+  description = "If set, Terraform will wait for the Spot Request to be fulfilled, and will throw an error if the timeout of 10m is reached"
+  type        = bool
+  default     = null
+}
+
+variable "spot_type" {
+  description = "If set to one-time, after the instance is terminated, the spot request will be closed. Default `persistent`"
+  type        = string
+  default     = null
+}
+
+variable "spot_launch_group" {
+  description = "A launch group is a group of spot instances that launch together and terminate together. If left empty instances are launched and terminated individually"
+  type        = string
+  default     = null
+}
+
+variable "spot_block_duration_minutes" {
+  description = "The required duration for the Spot instances, in minutes"
+  type        = number
+  default     = null
+}
+
+variable "spot_instance_interruption_behavior" {
+  description = "Spot instance behavior when it is interrupted"
+  type        = string
+  default     = null
+}
+
+variable "spot_valid_until" {
+  description = "End date and time of request"
+  type        = string
+  default     = null
+}
+
+variable "spot_valid_from" {
+  description = "The start date and time of the request, in UTC RFC3339 format(for example, YYYY-MM-DDTHH:MM:SSZ)"
+  type        = string
+  default     = null
+}
